@@ -1,0 +1,99 @@
+// POST /jobs/invoice-v1
+// Example only. Fictional values — not a request you can send as-is.
+// No sender on the job. Each document names the legal entity that issues that invoice.
+// document.sender replaces the job sender for that document only.
+{
+  "jobType": "example-invoice",
+  "externalRef": "example-ehf-senders",
+  "customerId": "123456789",
+  "language": "no",
+  "channels": ["ehf"],
+  "documents": [
+    {
+      "externalRef": "example-ehf-north",
+      "sender": {
+        "name": "Eksempel Nord AS",
+        "orgNumber": "111111111",
+        "vat": "NO111111111MVA",
+        "country": "NO"
+      },
+      "recipient": {
+        "name": "Mottaker AS",
+        "orgNumber": "987654321",
+        "vat": "NO987654321MVA",
+        "country": "NO"
+      },
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-03-25",
+        "invoiceNumber": "2026-3001",
+        "recipientInvoiceRef": "PO-3001",
+        "invoiceLines": [
+          {
+            "itemName": "Nettleie",
+            "quantity": 1,
+            "itemPrice": 1000,
+            "vat": { "percentage": 25 }
+          }
+        ],
+        "paymentInfo": {
+          "paymentId": "123456789012345",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-04-30"
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    },
+    {
+      "externalRef": "example-ehf-south",
+      "sender": {
+        "name": "Eksempel Sør AS",
+        "orgNumber": "222222222",
+        "vat": "NO222222222MVA",
+        "country": "NO"
+      },
+      "recipient": {
+        "name": "Mottaker AS",
+        "orgNumber": "987654321",
+        "vat": "NO987654321MVA",
+        "country": "NO"
+      },
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-03-25",
+        "invoiceNumber": "2026-3002",
+        "recipientInvoiceRef": "PO-3002",
+        "invoiceLines": [
+          {
+            "itemName": "Nettleie",
+            "quantity": 1,
+            "itemPrice": 800,
+            "vat": { "percentage": 25 }
+          }
+        ],
+        "paymentInfo": {
+          "paymentId": "123456789012346",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-04-30"
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

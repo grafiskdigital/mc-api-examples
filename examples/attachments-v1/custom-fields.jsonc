@@ -1,0 +1,55 @@
+// POST /jobs/attachments-v1
+// Example only. Fictional values — not a request you can send as-is.
+// documentDetails.customFields are extra name/value pairs on the document.
+// Allowed names and how the job type uses them come from GET /info/job-types.
+// They are not a substitute for templates.emailSubject or emailTemplate / smsTemplate files.
+{
+  "jobType": "example-attachments",
+  "customerId": "123456789",
+  "language": "no",
+  "channels": ["email"],
+  "sender": {
+    "orgNumber": "123456789",
+    "name": "Eksempel AS",
+    "email": "faktura@example.no",
+    "phone": "+4721000000",
+    "www": "https://example.no"
+  },
+  "documents": [
+    {
+      "language": "no",
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        "email": "kari.nordmann@example.com"
+      },
+      "templates": {
+        "emailSubject": "Kontraktsdokument fra Eksempel AS"
+      },
+      "externalRef": "example-custom-fields",
+      "documentDetails": {
+        "customFields": [
+          { "name": "contractNumber", "value": "AVT-2026-0042" },
+          { "name": "projectCode", "value": "PROSJEKT-NORD" },
+          { "name": "signingDeadline", "value": "2026-06-15" }
+        ]
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "contract.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "emailTemplate",
+          "filename": "email.html",
+          "mime": "text/html",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

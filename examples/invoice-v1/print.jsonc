@@ -1,0 +1,53 @@
+// POST /jobs/invoice-v1
+// Example only. Fictional values — not a request you can send as-is.
+// Print. The recipient needs a postal address. The sender is printed as the return address.
+{
+  "jobType": "example-invoice",
+  "customerId": "123456789",
+  "language": "no",
+  "channels": ["print"],
+  "sender": {
+    // Organization requires orgNumber and name.
+    "orgNumber": "123456789",
+    "name": "Eksempel AS",
+    "address1": "Eksempelveien 1",
+    "zip": "0150",
+    "city": "Oslo",
+    // ISO 3166-1 alpha-2.
+    "country": "NO"
+  },
+  "documents": [
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        "address1": "Bakkesvingen 61",
+        "zip": "5059",
+        "city": "Bergen",
+        "country": "NO"
+      },
+      "externalRef": "example-print",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1001",
+        "paymentInfo": {
+          "paymentId": "123456789012345",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-06-01",
+          "payableAmount": 1250
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

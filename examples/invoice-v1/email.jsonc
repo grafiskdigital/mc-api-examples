@@ -1,0 +1,100 @@
+// POST /jobs/invoice-v1
+// Example only. Fictional values — not a request you can send as-is.
+// Email. Each document sets templates.emailSubject and a file with role emailTemplate.
+{
+  // Job type from GET /info/job-types. It must be bound to the invoice-v1 schema.
+  "jobType": "example-invoice",
+  // Organization number from GET /customers.
+  "customerId": "123456789",
+  // ISO 639-1. Defaults to "no".
+  "language": "no",
+  // Applied to every document that does not set its own channels.
+  "channels": ["email"],
+  "documents": [
+    {
+      "recipient": {
+        // Person.name is the given name. lastName is the family name.
+        "name": "Kari",
+        "lastName": "Nordmann",
+        // Address the email channel delivers to.
+        "email": "kari.nordmann@example.com"
+      },
+      "templates": {
+        // Subject line of the email.
+        "emailSubject": "Faktura 2026-1001 fra Eksempel AS"
+      },
+      // Your id for this document. Used again when you look the document up.
+      "externalRef": "example-email-file",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        // NOK, SEK, DKK, or EUR. Defaults to NOK.
+        "currency": "NOK",
+        // Required.
+        "invoiceNumber": "2026-1001",
+        "paymentInfo": {
+          // KID. Optional.
+          "paymentId": "123456789012345",
+          "accountNumber": "86011117947",
+          // Required on paymentInfo.
+          "dueDate": "2026-05-26",
+          "payableAmount": 1250
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "emailTemplate",
+          "mime": "text/html",
+          "filename": "email.html",
+          "base64": "..."
+        }
+      ]
+    },
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        "email": "kari.nordmann@example.com"
+      },
+      "templates": {
+        "emailSubject": "Faktura 2026-1002 fra Eksempel AS"
+      },
+      "externalRef": "example-email-template",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1002",
+        "paymentInfo": {
+          "paymentId": "123456789012346",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-06-26",
+          "payableAmount": 1250
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "emailTemplate",
+          "mime": "text/html",
+          "filename": "email.html",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

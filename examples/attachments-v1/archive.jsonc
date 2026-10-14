@@ -1,0 +1,36 @@
+// POST /jobs/attachments-v1
+// Example only. Fictional values — not a request you can send as-is.
+// Archive only. The recipient is stored with the file; nothing is sent.
+{
+  "jobType": "example-attachments",
+  "customerId": "123456789",
+  "language": "no",
+  "channels": ["archive"],
+  "sender": {
+    "orgNumber": "123456789",
+    "name": "Eksempel AS",
+    "address1": "Eksempelveien 1",
+    "zip": "0150",
+    "city": "Oslo",
+    "country": "NO"
+  },
+  "documents": [
+    {
+      // attachments-v1 only requires recipient.
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann"
+      },
+      "externalRef": "example-archive",
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

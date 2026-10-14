@@ -1,0 +1,270 @@
+// POST /jobs/invoice-v1
+// Example only. Fictional values — not a request you can send as-is.
+// One job, one document per channel. channels on a document replaces the job channel list.
+// onHold processes the job and then stops before delivery.
+{
+  "jobType": "example-invoice",
+  "customerId": "123456789",
+  "language": "no",
+  "onHold": true,
+  "sender": {
+    "orgNumber": "123456789",
+    "name": "Eksempel AS",
+    "address1": "Eksempelveien 1",
+    "zip": "0150",
+    "city": "Oslo",
+    "country": "NO",
+    "www": "https://example.no"
+  },
+  "documents": [
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        "phone": "+4768051234"
+      },
+      "channels": ["sms"],
+      "externalRef": "example-sms",
+      // Stored on the document. Not included in what the recipient receives.
+      "comment": "Internal note about this document",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1001",
+        "paymentInfo": {
+          "paymentId": "123456789012345",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-07-01",
+          "payableAmount": 1250
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "smsTemplate",
+          "filename": "sms.txt",
+          "mime": "text/plain",
+          "base64": "..."
+        }
+      ]
+    },
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        "email": "kari.nordmann@example.com"
+      },
+      "channels": ["email"],
+      "templates": {
+        "emailSubject": "Faktura 2026-1002 fra Eksempel AS"
+      },
+      "externalRef": "example-email",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1002",
+        // Delivery address when it differs from the recipient address.
+        "delivery": {
+          "address1": "Eksempelveien 1",
+          "zip": "0150",
+          "city": "Oslo",
+          "country": "NO"
+        },
+        "paymentInfo": {
+          "paymentId": "123456789012346",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-07-01",
+          "payableAmount": 1250
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "emailTemplate",
+          "filename": "email.html",
+          "mime": "text/html",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "attachment",
+          "filename": "attachment.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    },
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann"
+      },
+      "channels": ["archive"],
+      "externalRef": "example-archive",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1003",
+        "paymentInfo": {
+          "paymentId": "123456789012347",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-07-01",
+          "payableAmount": 1250
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    },
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        // If ssn is set, it is used as the identifier. Otherwise the recipient fields are used to search for a unique recipient.
+        "ssn": "310180710180"
+      },
+      "channels": ["digipost"],
+      "externalRef": "example-digipost",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1004",
+        "paymentInfo": {
+          "paymentId": "123456789012348",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-07-01",
+          "payableAmount": 1250
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    },
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        // If ssn is set, it is used as the identifier. Otherwise the recipient fields are used to search for a unique recipient.
+        "ssn": "310180710180"
+      },
+      "channels": ["efaktura"],
+      "externalRef": "example-efaktura",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1005",
+        "paymentInfo": {
+          "paymentId": "123456789012349",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-07-01",
+          "payableAmount": 100
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    },
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        // If ssn is set, it is used as the identifier. Otherwise the recipient fields are used to search for a unique recipient.
+        "ssn": "310180710180"
+      },
+      "channels": ["avtalegiro"],
+      "externalRef": "example-avtalegiro",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1006",
+        "paymentInfo": {
+          "paymentId": "123456789012350",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-07-01",
+          "payableAmount": 100
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    },
+    {
+      // EHF built from invoice lines. No files: there is no separate presentation PDF.
+      "externalRef": "example-ehf",
+      "channels": ["ehf"],
+      "recipient": {
+        "name": "Mottaker AS",
+        "orgNumber": "987654321",
+        "address1": "Mottakerveien 2",
+        "zip": "5003",
+        "city": "Bergen",
+        "country": "NO",
+        "vat": "NO987654321MVA"
+      },
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-03-25",
+        "invoiceNumber": "2026-1007",
+        "recipientInvoiceRef": "PO-1007",
+        "invoiceLines": [
+          {
+            "itemName": "Konsulenttime",
+            "quantity": 1,
+            "itemPrice": 1000,
+            "vat": { "percentage": 25 }
+          }
+        ],
+        "paymentInfo": {
+          "paymentId": "123456789012351",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-07-01",
+          "payableAmount": 1250
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+// POST /jobs/attachments-v1
+// Example only. Fictional values — not a request you can send as-is.
+// Several channels on one job. They are tried in order. The first channel with a
+// valid recipient is used. If no recipient is found, or the recipient is invalid
+// for that channel, the next channel is tried.
+{
+  "jobType": "example-attachments",
+  "customerId": "123456789",
+  "language": "no",
+  // 1. sms  2. email  3. print
+  "channels": ["sms", "email", "print"],
+  "sender": {
+    "orgNumber": "123456789",
+    "name": "Eksempel AS",
+    "address1": "Eksempelveien 1",
+    "zip": "0150",
+    "city": "Oslo",
+    "country": "NO"
+  },
+  "documents": [
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        // Tried first. If this number is missing or invalid, email is next.
+        "phone": "+4768051234",
+        "email": "kari.nordmann@example.com",
+        // Used if both sms and email fail.
+        "address1": "Bakkesvingen 61",
+        "zip": "5059",
+        "city": "Bergen",
+        "country": "NO"
+      },
+      "templates": {
+        // Used only if delivery falls through to email.
+        "emailSubject": "Dokument fra Eksempel AS"
+      },
+      "externalRef": "example-channel-fallback",
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "smsTemplate",
+          "filename": "sms.txt",
+          "mime": "text/plain",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "emailTemplate",
+          "filename": "email.html",
+          "mime": "text/html",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

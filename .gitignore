@@ -1,0 +1,8 @@
+# Environment variables
+.env
+
+# OpenAPI specification
+openapi.yaml
+
+# Test data
+/testdata/

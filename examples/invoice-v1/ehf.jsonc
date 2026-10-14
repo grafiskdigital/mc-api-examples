@@ -1,0 +1,72 @@
+// POST /jobs/invoice-v1
+// Example only. Fictional values — not a request you can send as-is.
+// EHF to an organization. Invoice lines are required to build the EHF document.
+// sender on the job is the supplier. recipient on the document is the buyer.
+{
+  "jobType": "example-invoice",
+  // Checked so the same job is not accepted twice.
+  "externalRef": "example-ehf-job",
+  "customerId": "123456789",
+  "language": "no",
+  "channels": ["ehf"],
+  "sender": {
+    "name": "Eksempel AS",
+    "orgNumber": "123456789",
+    "address1": "Eksempelveien 1",
+    "zip": "0150",
+    "city": "Oslo",
+    "country": "NO",
+    "vat": "NO123456789MVA"
+  },
+  "documents": [
+    {
+      "externalRef": "example-ehf",
+      "recipient": {
+        "name": "Mottaker AS",
+        "orgNumber": "987654321",
+        "address1": "Mottakerveien 2",
+        "zip": "5003",
+        "city": "Bergen",
+        "country": "NO",
+        "vat": "NO987654321MVA"
+      },
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-03-25",
+        "invoiceNumber": "2026-1001",
+        // Buyer's own reference, printed on the EHF.
+        "recipientInvoiceRef": "PO-1001",
+        "invoiceLines": [
+          {
+            // Required: itemName, itemPrice, and vat.
+            "itemName": "Konsulenttime",
+            "quantity": 1,
+            "itemPrice": 1000,
+            "vat": {
+              // amount is calculated when only percentage is set.
+              // type defaults to "standard" (also: export, zero, exempt).
+              "percentage": 25
+            }
+          }
+        ],
+        "paymentInfo": {
+          "paymentId": "123456789012345",
+          "accountNumber": "86011117947",
+          "iban": "NO9386011117947",
+          "bic": "DNBANOKKXXX",
+          "dueDate": "2026-04-30"
+        }
+      },
+      "files": [
+        {
+          // Presentation PDF. The EHF itself is built from documentDetails.
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

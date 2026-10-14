@@ -1,0 +1,41 @@
+// POST /jobs/invoice-v1
+// Example only. Fictional values — not a request you can send as-is.
+// SMS channel. The text is an inline template; {mainLink} is filled with a link to the document.
+{
+  "jobType": "example-invoice",
+  "customerId": "123456789",
+  "language": "no",
+  "channels": ["sms"],
+  "documents": [
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        // The SMS channel delivers to this number.
+        "phone": "+4768051234"
+      },
+      "externalRef": "example-sms",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1001",
+        "paymentInfo": {
+          "paymentId": "123456789012345",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-06-26",
+          "payableAmount": 1250
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "smsTemplate",
+          "mime": "text/plain",
+          "filename": "sms.txt",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

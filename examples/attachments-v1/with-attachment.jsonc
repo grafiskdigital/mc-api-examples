@@ -1,0 +1,50 @@
+// POST /jobs/attachments-v1
+// Example only. Fictional values — not a request you can send as-is.
+// A main PDF plus a second file with role "attachment".
+// recipientRef is your own customer number, stored so you can search for the recipient later.
+{
+  "jobType": "example-attachments",
+  "customerId": "123456789",
+  "language": "no",
+  "channels": ["archive"],
+  "sender": {
+    "orgNumber": "123456789",
+    "name": "Eksempel AS",
+    "address1": "Eksempelveien 1",
+    "zip": "0150",
+    "city": "Oslo",
+    "country": "NO"
+  },
+  "documents": [
+    {
+      "language": "no",
+      "recipient": {
+        "name": "Mottaker AS",
+        "address1": "Mottakerveien 2",
+        "zip": "5003",
+        "city": "Bergen",
+        "country": "NO"
+      },
+      "recipientRef": "10001",
+      "externalRef": "example-with-attachment",
+      // On this schema, documentDetails only accepts customFields.
+      // Invoice number, lines, and payment data belong on invoice-v1.
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "attachment",
+          "filename": "attachment.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+// POST /jobs/invoice-v1
+// Example only. Fictional values — not a request you can send as-is.
+// Digipost.
+{
+  "jobType": "example-invoice",
+  "customerId": "123456789",
+  "language": "no",
+  "channels": ["digipost"],
+  "sender": {
+    "orgNumber": "123456789",
+    "name": "Eksempel AS",
+    "address1": "Eksempelveien 1",
+    "zip": "0150",
+    "city": "Oslo",
+    "country": "NO"
+  },
+  "documents": [
+    {
+      "language": "no",
+      "recipient": {
+        // If ssn is set, it is used as the identifier. Otherwise the recipient fields are used to search for a unique recipient.
+        "ssn": "310180710180",
+        "name": "Kari",
+        "lastName": "Nordmann",
+        "email": "kari.nordmann@example.com"
+      },
+      "externalRef": "example-digipost",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-04-16",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1001",
+        "paymentInfo": {
+          "paymentId": "123456789012345",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-06-30",
+          "payableAmount": 530.41
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

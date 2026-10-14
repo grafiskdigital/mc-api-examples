@@ -1,0 +1,56 @@
+// POST /jobs/invoice-v1
+// Example only. Fictional values — not a request you can send as-is.
+// eFaktura invoice.
+{
+  "jobType": "example-invoice",
+  // Organization number from GET /customers.
+  "customerId": "123456789",
+  "language": "no",
+  "channels": ["efaktura"],
+  "sender": {
+    "name": "Eksempel AS",
+    "orgNumber": "123456789",
+    "address1": "Eksempelveien 1",
+    "zip": "0150",
+    "city": "Oslo",
+    "country": "NO",
+    "vat": "NO123456789MVA"
+  },
+  "documents": [
+    {
+      "language": "no",
+      "recipient": {
+        // If ssn is set, it is used as the identifier. Otherwise the recipient fields are used to search for a unique recipient.
+        "ssn": "310180710180",
+        "name": "Kari",
+        "lastName": "Nordmann",
+        "phone": "+4768051234",
+        "email": "kari.nordmann@example.com",
+        "address1": "Bakkesvingen 61",
+        "zip": "5059",
+        "city": "Bergen",
+        "country": "NO"
+      },
+      "externalRef": "example-efaktura",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "invoiceNumber": "2026-1001",
+        "paymentInfo": {
+          "paymentId": "123456789012345",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-06-20",
+          "payableAmount": 500
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

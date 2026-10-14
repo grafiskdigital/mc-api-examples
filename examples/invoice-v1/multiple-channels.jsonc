@@ -1,0 +1,118 @@
+// POST /jobs/invoice-v1
+// Example only. Fictional values — not a request you can send as-is.
+// Several channels on one job. They are tried in order. The first channel with a
+// valid recipient is used. If no recipient is found, or the recipient is invalid
+// for that channel, the next channel is tried.
+{
+  "jobType": "example-invoice",
+  "customerId": "123456789",
+  "language": "no",
+  // Job-level order. Used by every document that does not set its own channels.
+  // 1. efaktura  2. digipost  3. email  4. print
+  "channels": ["efaktura", "digipost", "email", "print"],
+  "sender": {
+    "orgNumber": "123456789",
+    "name": "Eksempel AS",
+    "address1": "Eksempelveien 1",
+    "zip": "0150",
+    "city": "Oslo",
+    "country": "NO",
+    "vat": "NO123456789MVA"
+  },
+  "documents": [
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        // If ssn is set, it is used as the identifier for efaktura and digipost.
+        // Otherwise the recipient fields are used to search for a unique recipient.
+        // If that fails, or the recipient is invalid, email is tried next, then print.
+        "ssn": "310180710180",
+        "email": "kari.nordmann@example.com",
+        "address1": "Bakkesvingen 61",
+        "zip": "5059",
+        "city": "Bergen",
+        "country": "NO"
+      },
+      "templates": {
+        // Used only if delivery falls through to email.
+        "emailSubject": "Faktura 2026-1001 fra Eksempel AS"
+      },
+      "externalRef": "example-channel-fallback",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1001",
+        "paymentInfo": {
+          "paymentId": "123456789012345",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-06-01",
+          "payableAmount": 1250
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "emailTemplate",
+          "filename": "email.html",
+          "mime": "text/html",
+          "base64": "..."
+        }
+      ]
+    },
+    {
+      // Replaces the job channel list for this document only.
+      // 1. email  2. print
+      "channels": ["email", "print"],
+      "recipient": {
+        "name": "Ola",
+        "lastName": "Nordmann",
+        "email": "ola.nordmann@example.com",
+        "address1": "Bakkesvingen 61",
+        "zip": "5059",
+        "city": "Bergen",
+        "country": "NO"
+      },
+      "templates": {
+        "emailSubject": "Faktura 2026-1002 fra Eksempel AS"
+      },
+      "externalRef": "example-email-then-print",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "currency": "NOK",
+        "invoiceNumber": "2026-1002",
+        "paymentInfo": {
+          "paymentId": "123456789012346",
+          "accountNumber": "86011117947",
+          "dueDate": "2026-06-01",
+          "payableAmount": 890
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        },
+        {
+          "type": "base64",
+          "role": "emailTemplate",
+          "filename": "email.html",
+          "mime": "text/html",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}

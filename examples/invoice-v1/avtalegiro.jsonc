@@ -1,0 +1,78 @@
+// POST /jobs/invoice-v1
+// Example only. Fictional values — not a request you can send as-is.
+// AvtaleGiro. The first document includes a PDF and ssn. The second has neither.
+{
+  "jobType": "example-invoice",
+  "customerId": "123456789",
+  "channels": ["avtalegiro"],
+  "externalRef": "example-avtalegiro-job",
+  "sender": {
+    "orgNumber": "123456789",
+    "name": "Eksempel AS"
+  },
+  "documents": [
+    {
+      "language": "no",
+      "recipient": {
+        // If ssn is set, it is used as the identifier. Otherwise the recipient fields are used to search for a unique recipient.
+        "ssn": "310180710180",
+        "name": "Kari",
+        "lastName": "Nordmann",
+        "phone": "+4768051234",
+        "email": "kari.nordmann@example.com",
+        "address1": "Bakkesvingen 61",
+        "zip": "5059",
+        "city": "Bergen",
+        "country": "NO"
+      },
+      "externalRef": "example-avtalegiro",
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "invoiceNumber": "2026-1001",
+        "paymentInfo": {
+          "paymentId": "123456789012345",
+          "dueDate": "2026-06-20",
+          "accountNumber": "86011117947",
+          "payableAmount": 1234.5
+        }
+      },
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        }
+      ]
+    },
+    {
+      "language": "no",
+      "recipient": {
+        // ssn is omitted, so the recipient fields are used to search for a unique recipient.
+        "name": "Kari",
+        "lastName": "Nordmann",
+        "phone": "+4768051234",
+        "email": "kari.nordmann@example.com",
+        "address1": "Bakkesvingen 61",
+        "zip": "5059",
+        "city": "Bergen",
+        "country": "NO"
+      },
+      "externalRef": "example-avtalegiro-nopdf",
+      // files is optional. This document is the claim only, with no presentation PDF.
+      "documentDetails": {
+        "type": "invoice",
+        "issueDate": "2026-05-12",
+        "invoiceNumber": "2026-1002",
+        "paymentInfo": {
+          "paymentId": "123456789012346",
+          "dueDate": "2026-06-20",
+          "accountNumber": "86011117947",
+          "payableAmount": 1234.5
+        }
+      }
+    }
+  ]
+}

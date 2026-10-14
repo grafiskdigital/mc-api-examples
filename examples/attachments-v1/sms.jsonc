@@ -1,0 +1,44 @@
+// POST /jobs/attachments-v1
+// Example only. Fictional values — not a request you can send as-is.
+// SMS. The message text is a file with role smsTemplate. The PDF is the document the message can link to.
+{
+  "jobType": "example-attachments",
+  "customerId": "123456789",
+  "language": "no",
+  "channels": ["sms"],
+  "sender": {
+    "orgNumber": "123456789",
+    "name": "Eksempel AS",
+    "address1": "Eksempelveien 1",
+    "zip": "0150",
+    "city": "Oslo",
+    "country": "NO"
+  },
+  "documents": [
+    {
+      "recipient": {
+        "name": "Kari",
+        "lastName": "Nordmann",
+        "phone": "+4768051234"
+      },
+      "externalRef": "example-sms-link",
+      "files": [
+        {
+          "type": "base64",
+          "role": "main",
+          "filename": "invoice.pdf",
+          "mime": "application/pdf",
+          "base64": "..."
+        },
+        {
+          // Message sent to recipient.phone.
+          "type": "base64",
+          "role": "smsTemplate",
+          "filename": "sms.txt",
+          "mime": "text/plain",
+          "base64": "..."
+        }
+      ]
+    }
+  ]
+}
